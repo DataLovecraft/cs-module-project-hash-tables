@@ -1,9 +1,27 @@
 # Your code here
 
+"""
+exps(x, y, z) =
+    if x <= 0: y + z
+    if x >  0: exps(x-1,y+1,z) + exps(x-2,y+2,z*2) + exps(x-3,y+3,z*3)
 
-def expensive_seq(x, y, z):
-    # Your code here
+x, y, and z are all greater than or equal to zero.
 
+"""
+
+# cache = {}
+
+def expensive_seq(x: int , y: int, z: int, cache: dict = dict()) -> int:
+    if x <= 0:
+        return y + z
+
+    if (x, y, x) not in cache:
+        cache[(x, y, z)] = expensive_seq(x - 1, y + 1, z, cache) + \
+                           expensive_seq(x - 2, y + 2, z * 2, cache) + \
+                           expensive_seq(x - 3, y + 3, z * 3, cache)
+        return cache[(x, y, z)]
+    else:
+        return cache[(x, y, z)]
 
 
 if __name__ == "__main__":
